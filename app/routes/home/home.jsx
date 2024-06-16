@@ -8,6 +8,9 @@ import sliceTextureLarge from '~/assets/slice-app-large.jpg';
 import sliceTexturePlaceholder from '~/assets/slice-app-placeholder.jpg';
 import sliceTexture from '~/assets/slice-app.jpg';
 import sprTextureLarge from '~/assets/spr-lesson-builder-dark-large.jpg';
+import onlineIDE from "~/assets/OnlineIDE.png";
+import chessAppLogin from "~/assets/chessAppLogin.jpg";
+import chessAppHome from "~/assets/chessAppHome.jpg";
 import sprTexturePlaceholder from '~/assets/spr-lesson-builder-dark-placeholder.jpg';
 import sprTexture from '~/assets/spr-lesson-builder-dark.jpg';
 import { Footer } from '~/components/footer';
@@ -18,6 +21,9 @@ import { ProjectSummary } from './project-summary';
 import { useEffect, useRef, useState } from 'react';
 import config from '~/config.json';
 import styles from './home.module.css';
+import mealsApp1 from "~/assets/mealsApp1.png";
+import mealsApp2 from "~/assets/mealsApp2.png";
+import malwareClassification from "~/assets/malwareClassification.png";
 
 // Prefetch draco decoader wasm
 export const links = () => {
@@ -53,10 +59,11 @@ export const Home = () => {
   const projectOne = useRef();
   const projectTwo = useRef();
   const projectThree = useRef();
+  const projectFour = useRef();
   const details = useRef();
 
   useEffect(() => {
-    const sections = [intro, projectOne, projectTwo, projectThree, details];
+    const sections = [intro, projectOne, projectTwo, projectThree, projectFour, details];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -103,16 +110,16 @@ export const Home = () => {
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
         index={1}
-        title="Designing the future of education"
-        description="Designing a platform to help educators build better online courseware"
+        title="A fresh coding experience"
+        description="Developed an online IDE platform using React, Node js, Socket.io and Docker"
         buttonText="View project"
-        buttonLink="/projects/smart-sparrow"
+        buttonLink="https://github.com/himanshu-thakur-7/OnlineIDE"
         model={{
           type: 'laptop',
-          alt: 'Smart Sparrow lesson builder',
+          alt: 'Online Editor',
           textures: [
             {
-              srcSet: `${sprTexture} 1280w, ${sprTextureLarge} 2560w`,
+              srcSet: `${onlineIDE} 1280w, ${onlineIDE} 2560w`,
               placeholder: sprTexturePlaceholder,
             },
           ],
@@ -124,41 +131,66 @@ export const Home = () => {
         sectionRef={projectTwo}
         visible={visibleSections.includes(projectTwo.current)}
         index={2}
-        title="Video game progress tracking"
-        description="Design and development for a video game tracking app built in React Native"
+        title="Mind games within 64 squares"
+        description="Developed a multi-player chess app using Flutter, Node Js and Firebase 🔥"
         buttonText="View website"
-        buttonLink="https://gamestack.hamishw.com"
+        buttonLink="https://github.com/himanshu-thakur-7/chess_game_flutter"
         model={{
           type: 'phone',
-          alt: 'App login screen',
+          alt: 'Chess App',
           textures: [
             {
-              srcSet: `${gamestackTexture} 375w, ${gamestackTextureLarge} 750w`,
-              placeholder: gamestackTexturePlaceholder,
+              srcSet: `${chessAppLogin} 375w, ${chessAppLogin} 750w`,
+              placeholder: chessAppLogin,
             },
             {
-              srcSet: `${gamestackTexture2} 375w, ${gamestackTexture2Large} 750w`,
-              placeholder: gamestackTexture2Placeholder,
+              srcSet: `${chessAppHome} 375w, ${chessAppHome} 750w`,
+              placeholder: chessAppHome,
             },
           ],
         }}
       />
       <ProjectSummary
         id="project-3"
+        alternate
         sectionRef={projectThree}
         visible={visibleSections.includes(projectThree.current)}
         index={3}
-        title="Biomedical image collaboration"
-        description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
+        title="A lip-smacking treat"
+        description="Developed a recipes app in Flutter"
         buttonText="View project"
-        buttonLink="/projects/slice"
+        buttonLink="https://github.com/himanshu-thakur-7/meals"
         model={{
-          type: 'laptop',
-          alt: 'Annotating a biomedical image in the Slice app',
+          type: 'phone',
+          alt: 'Meals App',
           textures: [
             {
-              srcSet: `${sliceTexture} 800w, ${sliceTextureLarge} 1920w`,
-              placeholder: sliceTexturePlaceholder,
+              srcSet: `${mealsApp1} 375w, ${mealsApp1} 750w`,
+              placeholder: mealsApp1,
+            },
+            {
+              srcSet: `${mealsApp2} 375w, ${mealsApp2} 750w`,
+              placeholder: mealsApp2,
+            },
+          ],
+        }}
+      />
+      <ProjectSummary
+        id="project-4"
+        sectionRef={projectFour}
+        visible={visibleSections.includes(projectFour.current)}
+        index={4}
+        title="What's your malware ?"
+        description="Used Pytorch for a research on classification of different malware signatures via some renowned neural net architectures "
+        buttonText="View project"
+        buttonLink="https://github.com/himanshu-thakur-7/Malware-Classification"
+        model={{
+          type: 'laptop',
+          alt: 'Malware Classification',
+          textures: [
+            {
+              srcSet: `${malwareClassification} 800w, ${malwareClassification} 1920w`,
+              placeholder: malwareClassification,
             },
           ],
         }}
