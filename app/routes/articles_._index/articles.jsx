@@ -17,12 +17,17 @@ import styles from './articles.module.css';
 function ArticlesPost({ slug, frontmatter, timecode, index }) {
   const [hovered, setHovered] = useState(false);
   const [dateTime, setDateTime] = useState(null);
+  const [endDateTime, setEndDateTime] = useState(null);
   const reduceMotion = useReducedMotion();
-  const { title, abstract, date, featured, banner } = frontmatter;
+  const { title, abstract, date, featured, banner, enddate } = frontmatter;
 
   useEffect(() => {
     setDateTime(formatDate(date));
   }, [date, dateTime]);
+
+  useEffect(() => {
+    setEndDateTime(formatDate(enddate));
+  }, [enddate, endDateTime]);
 
   const handleMouseEnter = () => {
     setHovered(true);
@@ -40,7 +45,7 @@ function ArticlesPost({ slug, frontmatter, timecode, index }) {
     >
       {featured && (
         <Text className={styles.postLabel} size="s">
-          Featured
+          Ongoing
         </Text>
       )}
       {featured && !!banner && (
@@ -57,8 +62,8 @@ function ArticlesPost({ slug, frontmatter, timecode, index }) {
       )}
       <RouterLink
         unstable_viewTransition
-        prefetch="intent"
-        to={`/articles/${slug}`}
+        // prefetch="intent"
+        // to={`/articles/${slug}`}
         className={styles.postLink}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -75,20 +80,25 @@ function ArticlesPost({ slug, frontmatter, timecode, index }) {
             {abstract}
           </Text>
           <div className={styles.postFooter}>
-            <Button secondary iconHoverShift icon="chevron-right" as="div">
-              Read article
-            </Button>
-            <Text className={styles.timecode} size="s">
-              {timecode}
-            </Text>
+            {/* <Button secondary iconHoverShift icon="chevron-right" as="div" onclick={ ()=>{}}>
+              {endDateTime}
+            </Button> */}
+            {featured && (
+              <div aria-hidden className={styles.postDate} style={{ "margin-left": "40%" }}>
+                <Divider notchWidth="34px" notchHeight="8px" />
+                Ongoing
+              </div>
+            )}
+            {!featured && (
+              <div aria-hidden className={styles.postDate} style={{ "margin-left": "40%" }}>
+                <Divider notchWidth="34px" notchHeight="8px" />
+                {endDateTime}
+              </div>
+            )}
+
           </div>
         </div>
       </RouterLink>
-      {featured && (
-        <Text aria-hidden className={styles.postTag} size="s">
-          477
-        </Text>
-      )}
     </article>
   );
 }
@@ -142,7 +152,7 @@ export function Articles() {
   const postsHeader = (
     <header className={styles.header}>
       <Heading className={styles.heading} level={5} as="h1">
-        <DecoderText text="Latest articles" />
+        <DecoderText text="Previous Endeavors" />
       </Heading>
       <Barcode className={styles.barcode} />
     </header>
@@ -152,13 +162,14 @@ export function Articles() {
     <div className={styles.list}>
       {!isSingleColumn && postsHeader}
       {posts.map(({ slug, ...post }, index) => (
+        console.log(post),
         <ArticlesPost key={slug} slug={slug} index={index} {...post} />
       ))}
-      {Array(2)
+      {/* {Array(2)
         .fill()
         .map((skeleton, index) => (
           <SkeletonPost key={index} index={index} />
-        ))}
+        ))} */}
     </div>
   );
 
