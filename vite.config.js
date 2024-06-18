@@ -21,9 +21,6 @@ export default defineConfig({
   server: {
     port: 7777,
   },
-  ssr: {
-    external: ["react-dom/server"]
-  },
   plugins: [
     mdx({
       rehypePlugins: [[rehypeImgSize, { dir: 'public' }], rehypeSlug, rehypePrism],
