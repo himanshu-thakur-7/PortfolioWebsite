@@ -1,5 +1,5 @@
 __  __  __
-\ \ \ \ \/sd
+\ \ \ \ \/
  \ \/\ \
   \/  \/
 
@@ -10,7 +10,7 @@ _______________________________________________________________________________
 
 DESIGNER | デザイナー
 
-Himanshu Thakur
+Hamish Williams
 Hand crafted design & web development
 
 Design tools:
