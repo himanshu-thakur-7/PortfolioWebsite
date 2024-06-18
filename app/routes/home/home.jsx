@@ -133,7 +133,7 @@ export const Home = () => {
         index={2}
         title="Mind games within 64 squares"
         description="Developed a multi-player chess app using Flutter, Node Js and Firebase 🔥"
-        buttonText="View website"
+        buttonText="View project"
         buttonLink="https://github.com/himanshu-thakur-7/chess_game_flutter"
         model={{
           type: 'phone',
