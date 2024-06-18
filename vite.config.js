@@ -36,8 +36,7 @@ export default defineConfig({
         return defineRoutes(route => {
           route('/', 'routes/home/route.js', { index: true });
         });
-      },
-      presets: [vercelPreset()]
+      }
     }),
     jsconfigPaths(),
   ],
