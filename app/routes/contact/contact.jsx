@@ -80,7 +80,7 @@ export async function action({ context, request }) {
     message: message
   }
   try {
-    const res = await axios.post("http://localhost:3001/send-email", templateParams);
+    const res = await axios.post("https://portfolio-backend-eta-pied.vercel.app/send-email", templateParams);
     console.log(res.data);
   }
   catch (e) {
