@@ -107,11 +107,21 @@ export default function App() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Theme color doesn't support oklch so I'm hard coding these hexes for now */}
         <meta name="theme-color" content={theme === 'dark' ? '#111' : '#F2F2F2'} />
-        <meta property="og:image" content="public/site-preview.png" />
         <meta
           name="color-scheme"
           content={theme === 'light' ? 'light dark' : 'dark light'}
         />
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="Your Website Title" />
+        <meta property="og:description" content="A brief description of your website." />
+        <meta property="og:image" content="/site-preview.png" />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Your Website Title" />
+        <meta name="twitter:description" content="A brief description of your website." />
+        <meta name="twitter:image" content="/site-preview.png" />
         <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
         <Meta />
         <Links />
@@ -150,6 +160,17 @@ export function ErrorBoundary() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#111" />
         <meta name="color-scheme" content="dark light" />
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="Error" />
+        <meta property="og:description" content="An error occurred." />
+        <meta property="og:image" content="/site-preview.png" />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Error" />
+        <meta name="twitter:description" content="An error occurred." />
+        <meta name="twitter:image" content="/site-preview.png" />
         <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
         <Meta />
         <Links />
