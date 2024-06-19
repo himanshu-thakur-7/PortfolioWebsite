@@ -107,6 +107,7 @@ export default function App() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Theme color doesn't support oklch so I'm hard coding these hexes for now */}
         <meta name="theme-color" content={theme === 'dark' ? '#111' : '#F2F2F2'} />
+        <meta property="og:image" content="public/site-preview.png" />
         <meta
           name="color-scheme"
           content={theme === 'light' ? 'light dark' : 'dark light'}

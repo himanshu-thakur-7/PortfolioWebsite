@@ -7,11 +7,8 @@ import styles from './footer.module.css';
 export const Footer = ({ className }) => (
   <footer className={classes(styles.footer, className)}>
     <Text size="s" align="center">
-      <span className={styles.date}>
-        {`${new Date().getFullYear()} ${config.name}.`}
-      </span>
       <Link secondary className={styles.link} href="/humans.txt" target="_self">
-        Crafted by Hamish Williams
+        Hand crafted by Hamish Williams 🔥
       </Link>
     </Text>
   </footer>
