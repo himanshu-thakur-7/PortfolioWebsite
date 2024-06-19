@@ -1,6 +1,10 @@
 [build]
 command = "npm run build"
-publish = "build/client"
+publish = "build"
+
+
+[[plugins]]
+package = "@netlify/plugin-functions-install-core"
 
 [dev]
 command = "npm run dev"
