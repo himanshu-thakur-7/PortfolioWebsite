@@ -26,7 +26,6 @@ export default defineConfig({
     noExternal: ['react-dom/server']
   },
   plugins: [
-    netlifyPlugin(),
     mdx({
       rehypePlugins: [[rehypeImgSize, { dir: 'public' }], rehypeSlug, rehypePrism],
       remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],

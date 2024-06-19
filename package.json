@@ -9,7 +9,7 @@
   "scripts": {
     "build": "remix vite:build",
     "dev": "node ./scripts/dev.cjs && remix vite:dev",
-    "start": "netlify serve",
+    "start": "wrangler pages dev ./build/client",
     "postinstall": "node ./scripts/draco.cjs"
   },
   "dependencies": {
