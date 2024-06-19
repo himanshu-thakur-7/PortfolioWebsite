@@ -11,6 +11,7 @@ import rehypeImgSize from 'rehype-img-size';
 import rehypeSlug from 'rehype-slug';
 import rehypePrism from '@mapbox/rehype-prism';
 import { vercelPreset } from "@vercel/remix/vite"
+import { netlifyPlugin } from "@netlify/remix-adapter/plugin";
 const isStorybook = process.argv[1]?.includes('storybook');
 
 export default defineConfig({
@@ -25,6 +26,7 @@ export default defineConfig({
     noExternal: ['react-dom/server']
   },
   plugins: [
+    netlifyPlugin(),
     mdx({
       rehypePlugins: [[rehypeImgSize, { dir: 'public' }], rehypeSlug, rehypePrism],
       remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],

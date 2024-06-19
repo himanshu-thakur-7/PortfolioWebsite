@@ -9,13 +9,14 @@
   "scripts": {
     "build": "remix vite:build",
     "dev": "node ./scripts/dev.cjs && remix vite:dev",
-    "start": "wrangler pages dev ./build/client",
+    "start": "netlify serve",
     "postinstall": "node ./scripts/draco.cjs"
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.515.0",
     "@emailjs/browser": "^4.3.3",
     "@mdx-js/react": "^3.0.1",
+    "@netlify/remix-adapter": "^2.4.0",
     "@remix-run/cloudflare": "^2.7.1",
     "@remix-run/cloudflare-pages": "^2.7.1",
     "@remix-run/react": "^2.7.1",
