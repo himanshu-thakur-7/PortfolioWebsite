@@ -8,7 +8,7 @@ export const Footer = ({ className }) => (
   <footer className={classes(styles.footer, className)}>
     <Text size="s" align="center">
       <Link secondary className={styles.link} href="/humans.txt" target="_self">
-        Hand crafted by Hamish Williams 🔥
+        Designed by Hamish Williams. Updated by Himanshu Thakur
       </Link>
     </Text>
   </footer>
