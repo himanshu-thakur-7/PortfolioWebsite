@@ -12,6 +12,8 @@ import { ThemeToggle } from './theme-toggle';
 import { navLinks, socialLinks } from './nav-data';
 import config from '~/config.json';
 import styles from './navbar.module.css';
+import hsLogo from "~/assets/hs-logo.png";
+
 
 export const Navbar = () => {
   const [current, setCurrent] = useState();
@@ -150,7 +152,11 @@ export const Navbar = () => {
         aria-label={`${config.name}, ${config.role}`}
         onClick={handleMobileNavClick}
       >
-        <Monogram highlight />
+        <img 
+          src={hsLogo}
+          alt={config.name}
+          style={{ height: '100px', width: 'auto' }} 
+        />
       </RouterLink>
       <NavToggle onClick={() => setMenuOpen(!menuOpen)} menuOpen={menuOpen} />
       <nav className={styles.nav}>
