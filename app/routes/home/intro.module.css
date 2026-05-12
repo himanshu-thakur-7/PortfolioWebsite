@@ -22,8 +22,6 @@
 
   @media (--mediaMobile) {
     top: calc(var(--space3XL) * -1);
-    /* Section already adds spaceOuter padding, but give heading room to breathe */
-    overflow: hidden;
   }
 
   @media (--mediaMobileS) {
@@ -60,9 +58,6 @@
     font-size: calc((15 / 16) * 1rem);
     margin-bottom: var(--spaceL);
     letter-spacing: 0.2em;
-    /* Allow decoder text to clip rather than overflow */
-    overflow: hidden;
-    max-width: 100%;
   }
 
   @media (--mediaMobileS) {
@@ -82,14 +77,17 @@
 .title {
   letter-spacing: -0.03em;
 
-  /* Override the H0 custom property within this element's scope so the
-     Heading component's `font-size: var(--fontSizeH0)` picks it up. */
+  /* Downsize from H0 → H3 on mobile. H3 = 28px which is the largest size
+     where "Distributed Systems" (the longest discipline) still fits on one
+     line within the Section's 24px-padded viewport width.
+     Using a fixed token (not vw-based clamp) avoids constant reflow/flicker
+     as the viewport reports fractional widths during scroll. */
   @media (--mediaMobile) {
-    --fontSizeH0: clamp(2rem, 9.5vw, 3.5rem);
+    --fontSizeH0: var(--fontSizeH3);
   }
 
   @media (--mediaMobileS) {
-    --fontSizeH0: clamp(1.8rem, 9vw, 2.8rem);
+    --fontSizeH0: var(--fontSizeH4);
   }
 }
 
@@ -100,7 +98,9 @@
   position: relative;
 
   @media (--mediaMobile) {
-    overflow: hidden;
+    /* Hold the row open while the discipline word exits (position:absolute).
+       Without this the row collapses to 0 height then jumps back — the flicker. */
+    min-height: 1.2em;
   }
 
   &[data-hidden='true'] {
@@ -139,12 +139,6 @@
   color: color-mix(in lab, var(--text) 0%, transparent);
   transition: opacity 0.5s ease var(--durationM);
   isolation: isolate;
-
-  @media (--mediaMobile) {
-    flex-shrink: 1;
-    min-width: 0;
-    max-width: 100%;
-  }
 
   &::after {
     content: '';
