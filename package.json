@@ -8,7 +8,7 @@
   "type": "module",
   "scripts": {
     "build": "remix vite:build",
-    "dev": "node ./scripts/dev.cjs && remix vite:dev",
+    "dev": "node ./scripts/dev.cjs && NODE_OPTIONS=\"--require ./scripts/crypto-polyfill.cjs\" remix vite:dev",
     "start": "wrangler pages dev ./build/client",
     "postinstall": "node ./scripts/draco.cjs"
   },

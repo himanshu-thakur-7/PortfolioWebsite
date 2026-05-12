@@ -1,23 +1,14 @@
-import gamestackTexture2Large from '~/assets/gamestack-list-large.jpg';
-import gamestackTexture2Placeholder from '~/assets/gamestack-list-placeholder.jpg';
-import gamestackTexture2 from '~/assets/gamestack-list.jpg';
-import gamestackTextureLarge from '~/assets/gamestack-login-large.jpg';
-import gamestackTexturePlaceholder from '~/assets/gamestack-login-placeholder.jpg';
-import gamestackTexture from '~/assets/gamestack-login.jpg';
-import sliceTextureLarge from '~/assets/slice-app-large.jpg';
-import sliceTexturePlaceholder from '~/assets/slice-app-placeholder.jpg';
-import sliceTexture from '~/assets/slice-app.jpg';
-import sprTextureLarge from '~/assets/spr-lesson-builder-dark-large.jpg';
 import onlineIDE from "~/assets/OnlineIDE.png";
 import chessAppLogin from "~/assets/chessAppLogin.jpg";
 import chessAppHome from "~/assets/chessAppHome.jpg";
 import sprTexturePlaceholder from '~/assets/spr-lesson-builder-dark-placeholder.jpg';
-import sprTexture from '~/assets/spr-lesson-builder-dark.jpg';
 import { Footer } from '~/components/footer';
 import { baseMeta } from '~/utils/meta';
 import { Intro } from './intro';
 import { Profile } from './profile';
 import { ProjectSummary } from './project-summary';
+import { ProjectCards } from './project-cards';
+import { BlogSection } from './blog-section';
 import { useEffect, useRef, useState } from 'react';
 import config from '~/config.json';
 import styles from './home.module.css';
@@ -25,7 +16,6 @@ import mealsApp1 from "~/assets/mealsApp1.png";
 import mealsApp2 from "~/assets/mealsApp2.png";
 import malwareClassification from "~/assets/malwareClassification.png";
 
-// Prefetch draco decoader wasm
 export const links = () => {
   return [
     {
@@ -47,8 +37,8 @@ export const links = () => {
 
 export const meta = () => {
   return baseMeta({
-    title: 'Developer',
-    description: `Developer portfolio of ${config.name}`,
+    title: 'Software Engineer',
+    description: `Portfolio of ${config.name} — Backend Engineer & Distributed Systems`,
   });
 };
 
@@ -60,10 +50,15 @@ export const Home = () => {
   const projectTwo = useRef();
   const projectThree = useRef();
   const projectFour = useRef();
+  const systemProjects = useRef();
+  const blogs = useRef();
   const details = useRef();
 
   useEffect(() => {
-    const sections = [intro, projectOne, projectTwo, projectThree, projectFour, details];
+    const sections = [
+      intro, projectOne, projectTwo, projectThree, projectFour,
+      systemProjects, blogs, details,
+    ];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -132,7 +127,7 @@ export const Home = () => {
         visible={visibleSections.includes(projectTwo.current)}
         index={2}
         title="Mind games within 64 squares"
-        description="Developed a multi-player chess app using Flutter, Node Js and Firebase 🔥"
+        description="Developed a multi-player chess app using Flutter, Node Js and Firebase"
         buttonText="View project"
         buttonLink="https://github.com/himanshu-thakur-7/chess_game_flutter"
         model={{
@@ -180,8 +175,8 @@ export const Home = () => {
         sectionRef={projectFour}
         visible={visibleSections.includes(projectFour.current)}
         index={4}
-        title="What's your malware ?"
-        description="Used Pytorch for a research on classification of different malware signatures via some renowned neural net architectures "
+        title="What's your malware?"
+        description="Used Pytorch for research on classification of different malware signatures via renowned neural net architectures"
         buttonText="View project"
         buttonLink="https://github.com/himanshu-thakur-7/Malware-Classification"
         model={{
@@ -194,6 +189,16 @@ export const Home = () => {
             },
           ],
         }}
+      />
+      <ProjectCards
+        id="system-projects"
+        sectionRef={systemProjects}
+        visible={visibleSections.includes(systemProjects.current)}
+      />
+      <BlogSection
+        id="blogs"
+        sectionRef={blogs}
+        visible={visibleSections.includes(blogs.current)}
       />
       <Profile
         sectionRef={details}
