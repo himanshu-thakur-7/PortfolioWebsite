@@ -1,56 +1,83 @@
 <p align="center">
   <img src="/public/favicon.svg" width="50" alt="Logo" />
 </p>
-<h1 align="center">Personal portfolio</h1>
+<h1 align="center">Himanshu Thakur — Portfolio</h1>
+
+<p align="center">
+  Software Engineer · Backend &amp; Distributed Systems
+</p>
+
+<p align="center">
+  <a href="https://himanshu-thakur.pages.dev/">Live Site</a> ·
+  <a href="https://github.com/himanshu-thakur-7">GitHub</a> ·
+  <a href="https://medium.com/@himanshuthakur8119">Medium</a>
+</p>
 
 [![Site preview](/public/site-preview.png)](https://himanshu-thakur.pages.dev/)
 
-My design portfolio to showcase a few projects. Built with [Remix](https://remix.run/), [Three.js](https://threejs.org/), and [Framer Motion](https://www.framer.com/motion/). View the [live site](https://hamishw.com) or check out a live version of the [components storybook](https://storybook.hamishw.com).
+---
+
+## About
+
+Personal portfolio for **Himanshu Thakur**, a Software Engineer specializing in backend systems, distributed architecture, and cloud infrastructure. Currently at Wells Fargo, having scaled systems from 500 to 15,000+ users (30×).
+
+Built with [Remix](https://remix.run/), [Three.js](https://threejs.org/), and [Framer Motion](https://www.framer.com/motion/). Deployed on [Cloudflare Pages](https://pages.cloudflare.com/).
+
+---
+
+## Sections
+
+| Section | Description |
+|---|---|
+| **Intro** | Animated hero with typewriter role decoder |
+| **Projects** | System design showcases — Ride-Matching, File Sync, Load Balancer, Email Orchestrator |
+| **Blog** | Latest Medium posts on distributed systems, system design, and Go |
+| **About** | Background, stack, and current focus areas |
+| **Contact** | Form that delivers directly to inbox via FormSubmit |
+
+---
+
+## Tech stack
+
+- **Framework** — [Remix v2](https://remix.run/) + Vite, deployed as a Cloudflare Worker
+- **3D / Animation** — [Three.js](https://threejs.org/), CSS custom properties, `IntersectionObserver`-driven reveal animations
+- **Styling** — CSS Modules with PostCSS, `oklch()` color space, custom media queries
+- **Contact form** — [FormSubmit.co](https://formsubmit.co/) (serverless, no account required)
+- **Hosting** — [Cloudflare Pages](https://pages.cloudflare.com/)
+
+---
 
 ## Install & run
 
-Make sure you have nodejs `19.9.0` or higher and npm `9.6.3` or higher installed. Install dependencies with:
+Requires Node.js `>=19.9.0` and npm `>=9.6.3`.
 
 ```bash
 npm install
-```
-
-Once it's done start up a local server with:
-
-```bash
 npm run dev
 ```
 
-To view the components storybook:
+The dev server starts at `http://localhost:7777`.
 
-```bash
-npm run dev:storybook
-```
+---
 
-## Deployment
+## Deploy
 
-I've set up the site using Cloudflare for hosting. Deploy the site to Cloudflare Pages:
+The site is hosted on Cloudflare Pages. To deploy:
 
 ```bash
 npm run deploy
 ```
 
-## Permissions
+Make sure `wrangler` is authenticated (`npx wrangler login`) and the project is linked to your Cloudflare Pages project before running.
 
-I'm cool with anyone using the code or parts of the code for their own site, it is open source so people can learn from it and adapt it. However, I would encourage you to modify the theme and components it to make it your own. If you are using the site's design largely unmodified, I'd appreciate being credited as the designer of the website.
+---
 
-I do not give permission to present any of my projects as your own (this is being actively used as my portfolio site and these are my real projects I've worked on).
+## Contact form
 
-## FAQs
+The contact form uses [FormSubmit.co](https://formsubmit.co/) — no server, no API keys, no account needed. On the **first submission** from a new domain, FormSubmit sends a one-time activation email to the recipient. Click the link once and all subsequent submissions are delivered automatically.
 
-<details>
-  <summary>How do I change the color on the <code>DisplacementSphere</code> (blobby rotating thing in the background).</summary>
-  
-  You'll need to edit the fragment shader. [Check out this issue for more details](https://github.com/HamishMW/portfolio/issues/19#issuecomment-870996615).
-</details>
+---
 
-<details>
-  <summary>How do I get the contact form to work?</summary>
-  
-  To get the contact form working create an AWS account and set up SES (Simple Email service). Then plug in your details into `.dev.vars.example` and rename it to `.dev.vars`. You'll also need to add these as enviroment variables in the Cloudflare dashboard for it to work in production. Or if you don't mind sending through gmail use [nodemailer](https://nodemailer.com/) instead.
-</details>
+## License
+
+Code is open source — feel free to use it as a base for your own portfolio. If you use the design largely unmodified, a credit is appreciated. The project write-ups and personal content are my own and should not be reused.
