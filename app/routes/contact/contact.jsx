@@ -10,21 +10,16 @@ import { Text } from '~/components/text';
 import { tokens } from '~/components/theme-provider/theme';
 import { Transition } from '~/components/transition';
 import { useFormInput } from '~/hooks';
-import { useEffect, useRef } from 'react';
+import { useRef, useState } from 'react';
 import { cssProps, msToNum, numToMs } from '~/utils/style';
 import { baseMeta } from '~/utils/meta';
-import { Form, useActionData, useNavigation } from '@remix-run/react';
-import { json } from '@remix-run/cloudflare';
-import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 import styles from './contact.module.css';
-import emailjs from '@emailjs/browser';
-import axios from "axios";
 
 export const meta = () => {
   return baseMeta({
     title: 'Contact',
     description:
-      'Send me a message if you’re interested in discussing a project or if you just want to say hi',
+      'Send me a message if you are interested in discussing a project or if you just want to say hi',
   });
 };
 
@@ -32,105 +27,99 @@ const MAX_EMAIL_LENGTH = 512;
 const MAX_MESSAGE_LENGTH = 4096;
 const EMAIL_PATTERN = /(.+)@(.+){2,}\.(.+){2,}/;
 
-export async function action({ context, request }) {
-  const templateId = 'template_36eklqn';
-  const serviceId = 'service_jmwk0p8';
-  const publicKey = 'RLk3nfBE3-Q9umrW2'
-
-  // const ses = new SESClient({
-  //   region: 'us-east-1',
-  //   credentials: {
-  //     accessKeyId: context.cloudflare.env.AWS_ACCESS_KEY_ID,
-  //     secretAccessKey: context.cloudflare.env.AWS_SECRET_ACCESS_KEY,
-  //   },
-  // });
-
-  const formData = await request.formData();
-  const isBot = String(formData.get('name'));
-  const email = String(formData.get('email'));
-  const message = String(formData.get('message'));
-  const errors = {};
-
-  // Return without sending if a bot trips the honeypot
-  if (isBot) return json({ success: true });
-
-  // Handle input validation on the server
-  if (!email || !EMAIL_PATTERN.test(email)) {
-    errors.email = 'Please enter a valid email address.';
-  }
-
-  if (!message) {
-    errors.message = 'Please enter a message.';
-  }
-
-  if (email.length > MAX_EMAIL_LENGTH) {
-    errors.email = `Email address must be shorter than ${MAX_EMAIL_LENGTH} characters.`;
-  }
-
-  if (message.length > MAX_MESSAGE_LENGTH) {
-    errors.message = `Message must be shorter than ${MAX_MESSAGE_LENGTH} characters.`;
-  }
-
-  if (Object.keys(errors).length > 0) {
-    return json({ errors });
-  }
-
-  const templateParams = {
-    email: email,
-    message: message
-  }
-  try {
-    const res = await axios.post("https://portfolio-backend-three-mu.vercel.app/send-email", templateParams);
-    console.log(res.data);
-  }
-  catch (e) {
-    console.log(e);
-  }
-  // Send email via Amazon SES
-  // await ses.send(
-  //   new SendEmailCommand({
-  //     Destination: {
-  // ToAddresses: [context.cloudflare.env.EMAIL],
-  //     },
-  //     Message: {
-  //       Body: {
-  //         Text: {
-  //           Data: `From: ${email}\n\n${message}`,
-  //         },
-  //       },
-  //       Subject: {
-  //         Data: `Portfolio message from ${email}`,
-  //       },
-  //     },
-  //     Source: `Portfolio <${context.cloudflare.env.FROM_EMAIL}>`,
-  //     ReplyToAddresses: [email],
-  //   })
-  // );
-
-  return json({ success: true });
-}
+// FormSubmit endpoint — delivers directly to Gmail, no account needed
+const FORMSUBMIT_URL = 'https://formsubmit.co/ajax/himanshuthakur8119@gmail.com';
 
 export const Contact = () => {
   const errorRef = useRef();
   const email = useFormInput('');
   const message = useFormInput('');
   const initDelay = tokens.base.durationS;
-  const actionData = useActionData();
-  const { state } = useNavigation();
-  const sending = state === 'submitting';
 
-  useEffect(() => {
+  const [sending, setSending] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [errors, setErrors] = useState(null);
 
-  }, [])
+  const handleSubmit = async event => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const isBot = String(formData.get('name') || '');
+    const emailValue = String(formData.get('email') || '');
+    const messageValue = String(formData.get('message') || '');
+
+    // Bot honeypot
+    if (isBot) {
+      setSuccess(true);
+      return;
+    }
+
+    // Validation
+    const validationErrors = {};
+    if (!emailValue || !EMAIL_PATTERN.test(emailValue)) {
+      validationErrors.email = 'Please enter a valid email address.';
+    }
+    if (!messageValue) {
+      validationErrors.message = 'Please enter a message.';
+    }
+    if (emailValue.length > MAX_EMAIL_LENGTH) {
+      validationErrors.email = `Email address must be shorter than ${MAX_EMAIL_LENGTH} characters.`;
+    }
+    if (messageValue.length > MAX_MESSAGE_LENGTH) {
+      validationErrors.message = `Message must be shorter than ${MAX_MESSAGE_LENGTH} characters.`;
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setErrors(null);
+    setSending(true);
+
+    try {
+      const res = await fetch(FORMSUBMIT_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          email: emailValue,
+          message: messageValue,
+          _subject: `Portfolio contact from ${emailValue}`,
+          _replyto: emailValue,
+          _captcha: 'false',
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success === 'true') {
+        setSuccess(true);
+      } else {
+        throw new Error(data.message || 'Unknown error');
+      }
+    } catch (err) {
+      console.error('Email send failed:', err);
+      setErrors({
+        message:
+          'Sorry, something went wrong. Please email me directly at himanshuthakur8119@gmail.com',
+      });
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
     <Section className={styles.contact}>
-      <Transition unmount in={!actionData?.success} timeout={1600}>
+      <Transition unmount in={!success} timeout={1600}>
         {({ status, nodeRef }) => (
-          <Form
-            unstable_viewTransition
+          <form
             className={styles.form}
-            method="post"
+            onSubmit={handleSubmit}
             ref={nodeRef}
+            noValidate
           >
             <Heading
               className={styles.title}
@@ -146,7 +135,7 @@ export const Contact = () => {
               data-status={status}
               style={getDelay(tokens.base.durationXS, initDelay, 0.4)}
             />
-            {/* Hidden honeypot field to identify bots */}
+            {/* Hidden honeypot field */}
             <Input
               className={styles.botkiller}
               label="Name"
@@ -179,7 +168,7 @@ export const Contact = () => {
             />
             <Transition
               unmount
-              in={!sending && actionData?.errors}
+              in={!sending && errors}
               timeout={msToNum(tokens.base.durationM)}
             >
               {({ status: errorStatus, nodeRef }) => (
@@ -194,8 +183,8 @@ export const Contact = () => {
                   <div className={styles.formErrorContent} ref={errorRef}>
                     <div className={styles.formErrorMessage}>
                       <Icon className={styles.formErrorIcon} icon="error" />
-                      {actionData?.errors?.email}
-                      {actionData?.errors?.message}
+                      {errors?.email}
+                      {errors?.message}
                     </div>
                   </div>
                 </div>
@@ -204,7 +193,6 @@ export const Contact = () => {
             <Button
               className={styles.button}
               data-status={status}
-              // data-sending={sending}
               style={getDelay(tokens.base.durationM, initDelay)}
               disabled={sending}
               loading={sending}
@@ -214,10 +202,10 @@ export const Contact = () => {
             >
               Send message
             </Button>
-          </Form>
+          </form>
         )}
       </Transition>
-      <Transition unmount in={actionData?.success}>
+      <Transition unmount in={success}>
         {({ status, nodeRef }) => (
           <div className={styles.complete} aria-live="polite" ref={nodeRef}>
             <Heading
@@ -235,7 +223,7 @@ export const Contact = () => {
               data-status={status}
               style={getDelay(tokens.base.durationXS)}
             >
-              I’ll get back to you within a couple days, sit tight
+              {"I'll get back to you within a couple days, sit tight"}
             </Text>
             <Button
               secondary

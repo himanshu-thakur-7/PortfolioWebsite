@@ -12,7 +12,6 @@ import { Text } from '~/components/text';
 import { Transition } from '~/components/transition';
 import { Fragment, useState } from 'react';
 import { media } from '~/utils/style';
-import katakana from './katakana.svg';
 import styles from './profile.module.css';
 
 const ProfileText = ({ visible, titleId }) => (
@@ -21,16 +20,17 @@ const ProfileText = ({ visible, titleId }) => (
       <DecoderText text="Hi there" start={visible} delay={500} />
     </Heading>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
-      I’m Himanshu, currently I live in Bengaluru, India working as a software engineer at{' '}
-      <Link href="https://www.wellsfargo.com/">Wells Fargo</Link>. My projects include full stack web apps,
-      cross-platform flutter apps, and research work in deep learning with python. Being comfortable with code allows me to rapidly
-      prototype and validate experiences. If you’re interested in the tools and software I
-      use check out my <Link href="/uses">uses page</Link>.
+      {"I'm Himanshu, a Senior Software Engineer based in Bengaluru, India, currently building distributed backend systems at "}
+      <Link href="https://www.wellsfargo.com/">Wells Fargo</Link>
+      {", where I scaled the Advisor Gateway platform 30x (500 to 15,000+ users). I specialize in distributed systems, event-driven architectures, and cloud-native infrastructure using Go, Python, Kubernetes, and Redis."}
     </Text>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
-      In my spare time I like to practice chess, play video games, and{' '}
-      hit the gym 💪. I’m always down for hearing
-      about new projects, so feel free to drop me a line.
+      {"I love tackling hard engineering problems around consistency, fault tolerance, and low-latency design. I write deep dives on distributed systems on "}
+      <Link href="https://medium.com/@himanshuthakur8119">Medium</Link>
+      {" — covering ride-matching at Uber scale, Dropbox-style file sync, and load balancer internals."}
+    </Text>
+    <Text className={styles.description} data-visible={visible} size="l" as="p">
+      {"Outside of work, I practice chess, hit the gym, and ship side projects. Always open to conversations about backend systems and remote-friendly opportunities."}
     </Text>
   </Fragment>
 );
@@ -86,11 +86,8 @@ export const Profile = ({ id, visible, sectionRef }) => {
                   width={960}
                   height={1080}
                   sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}
-                  alt="Me smiling like a goofball at the Qwilr office in Sydney"
+                  alt="Himanshu Thakur — Senior Software Engineer"
                 />
-                {/* <svg className={styles.svg} data-visible={visible} viewBox="0 0 136 766">
-                  <use href={`${katakana}#katakana-profile`} />
-                </svg> */}
               </div>
             </div>
           </div>
