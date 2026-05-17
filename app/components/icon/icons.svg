@@ -46,5 +46,8 @@
     <symbol id="play" viewBox="0 0 24 24">
       <path d="M8 5v14l11-7L8 5Z"/>
     </symbol>
+    <symbol id="download" viewBox="0 0 24 24">
+      <path d="M12 16.4l-6-6 1.4-1.4 4.6 4.6V3h2v10.6l4.6-4.6 1.4 1.4-8 8ZM3 21v-2h18v2H3Z"/>
+    </symbol>
   </defs>
 </svg>

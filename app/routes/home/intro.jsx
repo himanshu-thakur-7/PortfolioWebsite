@@ -5,6 +5,7 @@ import { useTheme } from '~/components/theme-provider';
 import { tokens } from '~/components/theme-provider/theme';
 import { Transition } from '~/components/transition';
 import { VisuallyHidden } from '~/components/visually-hidden';
+import { Icon } from '~/components/icon';
 import { Link as RouterLink } from '@remix-run/react';
 import { useInterval, usePrevious, useScrollToHash } from '~/hooks';
 import { Suspense, lazy, useEffect, useState } from 'react';
@@ -110,6 +111,15 @@ export function Intro({ id, sectionRef, scrollIndicatorHidden, ...rest }) {
                   ))}
                 </div>
               </Heading>
+              <a
+                className={styles.resumeLink}
+                href="/Himanshu_Thakur_Resume.pdf"
+                download="Himanshu_Thakur_Resume.pdf"
+                data-status={status}
+              >
+                <Icon icon="download" />
+                Download Resume
+              </a>
             </header>
             <RouterLink
               to="/#system-projects"

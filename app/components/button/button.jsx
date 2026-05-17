@@ -7,7 +7,10 @@ import { classes } from '~/utils/style';
 import styles from './button.module.css';
 
 function isExternalLink(href) {
-  return href?.includes('://');
+  // Treat real external URLs and static file links (pdf, docx, etc.) as
+  // external so the Button renders a plain <a> that supports the download
+  // attribute instead of routing through Remix's client-side Link.
+  return href?.includes('://') || /\.(pdf|docx?|xlsx?|zip|png|jpg|jpeg)$/i.test(href ?? '');
 }
 
 export const Button = forwardRef(({ href, ...rest }, ref) => {

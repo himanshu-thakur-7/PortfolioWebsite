@@ -132,6 +132,19 @@
   }
 }
 
+.buttonGroup {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--spaceM);
+  align-items: center;
+
+  @media (--mediaMobile) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 .button {
   opacity: 0;
   transition: opacity var(--durationXL) ease var(--durationL);
