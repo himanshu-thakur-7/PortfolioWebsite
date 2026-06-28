@@ -19,6 +19,7 @@ const projects = [
     ],
     tags: ['LiveKit', 'Neo4j', 'Deepgram', 'OpenAI', 'FastAPI', 'OpenSMILE'],
     link: 'https://github.com/himanshu-thakur-7/Voice-AI-Memory-Prototype',
+    demoLink: null,
     blogLink: null,
     icon: 'voice',
     accent: '#f472b6',
@@ -34,6 +35,7 @@ const projects = [
     ],
     tags: ['FastAPI', 'React', 'Ringg AI', 'GPT-4o', 'WebSocket', 'SSE'],
     link: 'https://github.com/himanshu-thakur-7/sync-rm-briefing-ai',
+    demoLink: 'https://sync-rm-briefing-ai-sync-dashboard.vercel.app/',
     blogLink: null,
     icon: 'sync-ai',
     accent: '#60a5fa',
@@ -171,6 +173,11 @@ export function AIProjectCards({ id, sectionRef, visible }) {
                     >
                       Code
                     </Button>
+                    {project.demoLink && (
+                      <Button iconHoverShift href={project.demoLink} iconEnd="arrow-right">
+                        Live Demo
+                      </Button>
+                    )}
                     {project.blogLink && (
                       <Button iconHoverShift href={project.blogLink} iconEnd="arrow-right">
                         Read write-up
