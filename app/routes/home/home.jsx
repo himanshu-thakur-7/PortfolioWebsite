@@ -3,6 +3,7 @@ import { baseMeta } from '~/utils/meta';
 import { Intro } from './intro';
 import { Profile } from './profile';
 import { ProjectCards } from './project-cards';
+import { AIProjectCards } from './ai-project-cards';
 import { BlogSection } from './blog-section';
 import { useEffect, useRef, useState } from 'react';
 import config from '~/config.json';
@@ -39,11 +40,12 @@ export const Home = () => {
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
   const intro = useRef();
   const systemProjects = useRef();
+  const aiProjects = useRef();
   const blogs = useRef();
   const details = useRef();
 
   useEffect(() => {
-    const sections = [intro, systemProjects, blogs, details];
+    const sections = [intro, systemProjects, aiProjects, blogs, details];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -89,6 +91,11 @@ export const Home = () => {
         id="system-projects"
         sectionRef={systemProjects}
         visible={visibleSections.includes(systemProjects.current)}
+      />
+      <AIProjectCards
+        id="ai-projects"
+        sectionRef={aiProjects}
+        visible={visibleSections.includes(aiProjects.current)}
       />
       <BlogSection
         id="blogs"
