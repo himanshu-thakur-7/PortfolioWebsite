@@ -87,15 +87,15 @@ export const Home = () => {
         sectionRef={intro}
         scrollIndicatorHidden={scrollIndicatorHidden}
       />
-      <ProjectCards
-        id="system-projects"
-        sectionRef={systemProjects}
-        visible={visibleSections.includes(systemProjects.current)}
-      />
       <AIProjectCards
         id="ai-projects"
         sectionRef={aiProjects}
         visible={visibleSections.includes(aiProjects.current)}
+      />
+      <ProjectCards
+        id="system-projects"
+        sectionRef={systemProjects}
+        visible={visibleSections.includes(systemProjects.current)}
       />
       <BlogSection
         id="blogs"
