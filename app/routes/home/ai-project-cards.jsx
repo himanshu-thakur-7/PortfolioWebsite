@@ -25,6 +25,22 @@ const projects = [
     accent: '#f472b6',
   },
   {
+    title: 'Revenant.AI — Autonomous Outbound Engineer',
+    subtitle: 'Offline-First Research → Personalized Outreach',
+    description:
+      'Autonomous outbound pipeline that researches prospects, drafts personalized emails, and orchestrates campaigns end-to-end. Offline-first Python pipeline with a Convex + React operator console. Built for the GrowthX × Hermes buildathon.',
+    metrics: [
+      { label: 'Pipeline', value: 'Offline-first' },
+      { label: 'Console', value: 'Convex + React' },
+    ],
+    tags: ['Python', 'Convex', 'React', 'LLM Agents', 'Loom'],
+    link: 'https://github.com/himanshu-thakur-7/Revenant.AI',
+    demoLink: null,
+    blogLink: null,
+    icon: 'revenant',
+    accent: '#a78bfa',
+  },
+  {
     title: 'SYNC — RM Briefing Co-Pilot',
     subtitle: 'Voice AI for Relationship Managers',
     description:
@@ -60,6 +76,16 @@ function ProjectIcon({ name }) {
         <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
         <line x1="12" y1="19" x2="12" y2="23" />
         <line x1="8" y1="23" x2="16" y2="23" />
+      </svg>
+    );
+  }
+  if (name === 'revenant') {
+    return (
+      <svg {...props}>
+        <path d="M3 11l9-7 9 7" />
+        <path d="M5 10v10h14V10" />
+        <path d="M9 20v-6h6v6" />
+        <circle cx="12" cy="7" r="1" />
       </svg>
     );
   }
